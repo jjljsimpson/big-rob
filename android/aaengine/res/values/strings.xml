@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Main -->
+    <string name="app_name">AAEngine</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_bluetooth">BluetoothActivity</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="main_bluetooth">Setup Bluetooth</string>
+    <string name="main_test">Run Test</string>
+    <string name="main_drive">Manual Drive</string>
+    <string name="main_location">Location Test</string>
+
+    <!-- Manual Drive Activity -->
+    <string name="title_activity_manual_drive">Manual Drive Activity</string>
+    <string name="manual_drive_left">left</string>
+    <string name="manual_drive_right">right</string>
+
+    <!-- Bluetooth -->
+    <string name="bluetooth_status">Status</string>
+    <string name="bluetooth_disconnect">Disconnect</string>
+    <string name="bluetooth_disconnecting">Disconnecting</string>
+    <string name="bluetooth_start">Initiallizing</string>
+    <string name="bluetooth_status_disconnected">Disconnected</string>
+    <string name="bluetooth_status_disconnected_device">Disconnected from %s</string>
+    <string name="bluetooth_status_notinit">Not Initialized</string>
+    <string name="bluetooth_status_notenabled">Not Enabled</string>
+    <string name="bluetooth_status_connected">Connected to %s</string>
+
+    <!-- Test -->
+    <string name="test_motor">Run Motor Test</string>
+    <string name="test_comm">Test Communication</string>
+
+    <!-- Manual Drive -->
+    <string name="manual_drive_main">Manual Drive</string>
+    <string name="title_activity_location">LocationActivity</string>
+
+</resources>

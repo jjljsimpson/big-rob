@@ -1,0 +1,8 @@
+JRoam	KEYWORD1
+setupRoaming	KEYWORD2
+reset	KEYWORD2
+getLeanDirection	KEYWORD2
+setLeanDirection	KEYWORD2
+isRoaming	KEYWORD2
+setRoaming	KEYWORD2
+roam	KEYWORD2
