@@ -1,5 +1,0 @@
-JWheel	KEYWORD1
-setupMotors	KEYWORD2
-setSpeed	KEYWORD2
-getLeftSpeed	KEYWORD2
-getRightSpeed	KEYWORD2

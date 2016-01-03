@@ -1,9 +1,0 @@
-JDistance	KEYWORD1
-setupSensors	KEYWORD2
-reset	KEYWORD2
-setActiveSensor	KEYWORD2
-getActiveSensors	KEYWORD2
-pingSensor	KEYWORD2
-getDistance	KEYWORD2
-setRotateMode	KEYWORD2
-scan	KEYWORD2

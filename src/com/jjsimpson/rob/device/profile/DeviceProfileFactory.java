@@ -1,0 +1,23 @@
+package com.jjsimpson.rob.device.profile;
+
+import com.jjsimpson.rob.comm.util.ICommClient;
+import com.jjsimpson.rob.log.ILogger;
+
+public class DeviceProfileFactory
+{
+
+	public static IDeviceProfile createDeviceProfile(int profileId, ICommClient comm, ILogger logger)
+	{
+		IDeviceProfile result = null;
+		
+		switch(profileId)
+		{
+			case BaseDeviceProfile.LOGGER_DEVICE_PROFILE:
+				result = new LoggerDevice(comm);
+				result.setLogger(logger);
+				break;
+		}
+		
+		return result;
+	}
+}

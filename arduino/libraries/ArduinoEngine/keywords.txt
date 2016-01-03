@@ -1,4 +1,0 @@
-BaseCommand	KEYWORD1
-commandType	KEYWORD2
-getSize	KEYWORD2
-process	KEYWORD2
