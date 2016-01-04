@@ -2,6 +2,7 @@ package com.jjsimpson.rob.comm.commands;
 
 import java.nio.ByteBuffer;
 
+import com.jjsimpson.rob.comm.commands.init.InitSubCommands;
 import com.jjsimpson.rob.comm.model.CommType;
 
 public class BaseCommand
@@ -12,7 +13,7 @@ public class BaseCommand
 	public BaseCommand()
 	{
 		//Set comm Type
-		type = new CommType(0);	//Default command
+		type = new CommType(InitSubCommands.BASE_COMMAND);	//Default command
 	}
 	
 	
