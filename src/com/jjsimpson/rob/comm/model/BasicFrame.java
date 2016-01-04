@@ -278,16 +278,23 @@ public class BasicFrame
 		if(stream != null)
 		{
 			int avSize = stream.available();	//How much we can read
-			int dataSize = (size-MIN_SIZE) - (position-START_SIZE);	//How much we need to read		
+			int totalSize = size - MIN_SIZE;	//Total of how much needs to be read
+			int offset = position - START_SIZE;	//Where we are starting
+			int dataSize = totalSize - offset;	//How much we need to read		
+			
+			if(data == null && totalSize > 0)
+			{
+				data = new byte[totalSize];
+			}
 			
 			if(avSize < dataSize)
 			{
-				stream.read(data, position-START_SIZE, avSize);
+				stream.read(data, offset, avSize);
 				position += avSize;
 			}
 			else if(avSize >= dataSize)
 			{
-				stream.read(data, position-START_SIZE, dataSize);
+				stream.read(data, offset, dataSize);
 				position += dataSize;
 			}		
 		}
