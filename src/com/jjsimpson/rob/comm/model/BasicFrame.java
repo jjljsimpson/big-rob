@@ -13,7 +13,7 @@ public class BasicFrame
 	
 	protected static final int START_SIZE = 9;
 	protected static final int END_SIZE = 5;
-	protected static final int MIN_SIZE = START_SIZE + END_SIZE;
+	public static final int MIN_SIZE = START_SIZE + END_SIZE;
 	
 	//Data in the frame
 	protected byte[]	header;		//4	Start of the communication
@@ -54,7 +54,7 @@ public class BasicFrame
 	{
 		header[0] = HEADER[0];	header[1] = HEADER[1];	header[2] = HEADER[2];	header[3] = HEADER[3];
 		
-		size = 0;
+		size = MIN_SIZE;
 		control = 0;
 		type = 0;
 		data = null;
@@ -206,7 +206,7 @@ public class BasicFrame
 		}
 	}
 	
-	public void readHeader(DataInputStream stream) throws IOException
+	protected void readHeader(DataInputStream stream) throws IOException
 	{
 		if(stream != null)
 		{
@@ -226,7 +226,7 @@ public class BasicFrame
 		}
 	}
 	
-	public boolean readSize(DataInputStream stream) throws IOException
+	protected boolean readSize(DataInputStream stream) throws IOException
 	{
 		if(stream != null && stream.available() >= 2) {
 			size = stream.readShort();
@@ -237,7 +237,7 @@ public class BasicFrame
 		return false;
 	}
 	
-	public void readControl(DataInputStream stream) throws IOException
+	protected void readControl(DataInputStream stream) throws IOException
 	{
 		if(stream != null)
 		{
@@ -246,7 +246,7 @@ public class BasicFrame
 		}
 	}
 	
-	public boolean readType(DataInputStream stream) throws IOException
+	protected boolean readType(DataInputStream stream) throws IOException
 	{
 		if(stream != null && stream.available() >= 2) {
 			type = stream.readShort();
@@ -257,7 +257,7 @@ public class BasicFrame
 		return false;
 	}
 	
-	public void readEndControl(DataInputStream stream) throws IOException
+	protected void readEndControl(DataInputStream stream) throws IOException
 	{
 		if(stream != null)
 		{
@@ -273,7 +273,7 @@ public class BasicFrame
 		}
 	}	
 	
-	public void readData(DataInputStream stream) throws IOException
+	protected void readData(DataInputStream stream) throws IOException
 	{
 		if(stream != null)
 		{

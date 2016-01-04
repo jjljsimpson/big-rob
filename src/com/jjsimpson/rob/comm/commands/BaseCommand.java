@@ -62,7 +62,7 @@ public class BaseCommand
 	
 	
 	//Override this to set size for writing data
-	protected int getSize()
+	public int getSize()
 	{
 		return 2;	//size for type
 	}

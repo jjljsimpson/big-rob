@@ -41,6 +41,9 @@ public class CommandFactory
 		
 		switch(type.getSubType())
 		{
+			case InitSubCommands.BASE_COMMAND:
+				result = new BaseCommand();
+				break;			
 			case InitSubCommands.FEEDBACK_SUB_COMMAND:
 				result = new FeedbackCommand();
 				break;
