@@ -17,14 +17,14 @@ public class FeedbackCommand extends BaseCommand
 	{
 		super();
 		control = INVALID_CONTROL;
-		type = new CommType(CommType.TYPE_INIT, INVALID_CONTROL);
+		type = new CommType(CommType.TYPE_INIT, InitSubCommands.FEEDBACK_SUB_COMMAND);
 	}
 	
 	public FeedbackCommand(int feedbackControl)
 	{
 		super();
 		control = feedbackControl;
-		type = new CommType(CommType.TYPE_INIT, INVALID_CONTROL);
+		type = new CommType(CommType.TYPE_INIT, InitSubCommands.FEEDBACK_SUB_COMMAND);
 	}	
 	
 	@Override
