@@ -10,9 +10,6 @@ public class CommType
 	//Main types of communication frames
 	public static final int	TYPE_INIT = 0;
 	
-	
-	
-	
 	//First byte is main type
 	//Second byte is sub type	
 	protected int mainType;
@@ -42,5 +39,12 @@ public class CommType
 		return result;
 	}
 	
+	
+	public String toString()
+	{
+		String result = "[CommType] " + Integer.toString(mainType) + ":" + Integer.toString(subType);
+		
+		return result;
+	}
 	
 }

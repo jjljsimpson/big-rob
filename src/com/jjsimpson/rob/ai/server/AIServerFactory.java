@@ -18,6 +18,13 @@ public class AIServerFactory extends BaseDeviceProfile
 		deviceProfileId = 0;
 	}
 	
+	public AIServerFactory(ICommClient client, ILogger newLogger)
+	{
+		super(client);
+		deviceProfileId = 0;
+		logger = newLogger;
+	}
+	
 	
 	@Override
 	protected void stopThreads()
@@ -55,6 +62,12 @@ public class AIServerFactory extends BaseDeviceProfile
 		//Now that we know what kind of device we have, let's stop reading stuff
 		//This gets us out of the run loop
 		isRunning = false;
+	}
+	
+	@Override
+	protected void sendFeedback(int control, CommType type)
+	{
+		//For AIServerFactory, we don't send feedback
 	}
 	
 	

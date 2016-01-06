@@ -60,7 +60,7 @@ public class SocketClient implements ICommClient
 	public void connect()
 	{
 		try {
-			socket = new Socket(socketAddress, socketPort);
+			socket = getSocket();
 			
 			if(socket != null && socket.isConnected())
 			{
@@ -70,6 +70,21 @@ public class SocketClient implements ICommClient
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
+	}
+	
+	
+	protected Socket getSocket()
+	{
+		Socket result = null;
+		
+		try {
+			result = new Socket(socketAddress, socketPort);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 

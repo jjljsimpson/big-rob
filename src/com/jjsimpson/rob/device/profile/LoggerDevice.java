@@ -60,7 +60,7 @@ public class LoggerDevice extends BaseDeviceProfile
 	@Override
 	protected void sendFeedback(int control, CommType type)
 	{
-		msg("Start sendfeedback");
+		msg("Start sendfeedback for " + type.toString());
 		super.sendFeedback(control, type);
 		msg("FInished sendfeedback");
 	}
@@ -68,7 +68,7 @@ public class LoggerDevice extends BaseDeviceProfile
 	@Override
 	protected void readCommand(BaseCommand command, CommType type)
 	{
-		msg("start readCommand");
+		msg("start readCommand for " + type.toString());
 		super.readCommand(command, type);
 		msg("Finished readCommand");
 	}

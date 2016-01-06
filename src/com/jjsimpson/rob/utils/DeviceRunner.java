@@ -24,7 +24,7 @@ public class DeviceRunner
 				
 		commClient = (args.length > 1) ? getCommClient(args[1]) : getCommClient("net:10.4.246.132");
 				
-		logger = new ConsoleLogger();
+		logger = new ConsoleLogger("{DEVICE} ");
 		
 		//Run profile
 		runProfile(profileId, commClient, logger);

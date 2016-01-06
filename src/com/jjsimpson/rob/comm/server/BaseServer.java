@@ -18,7 +18,7 @@ public class BaseServer implements Runnable
 	public BaseServer()
 	{
 		commClient = null;
-		logger = new ConsoleLogger();
+		logger = new ConsoleLogger("{Server} ");
 		aiServer = null;
 	}
 	

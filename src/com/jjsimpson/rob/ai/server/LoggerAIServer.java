@@ -1,6 +1,7 @@
 package com.jjsimpson.rob.ai.server;
 
 import com.jjsimpson.rob.comm.commands.init.LogCommand;
+import com.jjsimpson.rob.comm.model.CommType;
 import com.jjsimpson.rob.comm.util.ICommClient;
 import com.jjsimpson.rob.log.ILogger;
 
@@ -53,5 +54,4 @@ public class LoggerAIServer extends PingAIServer
 		logger.debug("Server is sending a ping");
 		super.sendPing(ctime);
 	}
-
 }

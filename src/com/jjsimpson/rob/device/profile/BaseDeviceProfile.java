@@ -167,7 +167,7 @@ public class BaseDeviceProfile extends Thread implements IDeviceProfile
 			if(frame.isValid())
 			{
 				logger.debug("Sending feedback");
-				writer.sendFeedback(new FeedbackCommand(FeedbackCommand.INVALID_CONTROL));
+				sendFeedback(FeedbackCommand.INVALID_CONTROL, new CommType(CommType.TYPE_INIT, InitSubCommands.FEEDBACK_SUB_COMMAND));
 			}
 			else
 			{
@@ -185,6 +185,7 @@ public class BaseDeviceProfile extends Thread implements IDeviceProfile
 			}
 		}		
 	}
+		
 	
 	
 	protected void sendFeedback(int control, CommType type)

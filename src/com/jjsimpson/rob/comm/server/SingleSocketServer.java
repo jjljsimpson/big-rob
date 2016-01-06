@@ -50,7 +50,7 @@ public class SingleSocketServer extends BaseServer
 		{
 			logger.debug("Server is starting AIServer Factory");
 			//need to listen for a handshake command
-			AIServerFactory factory = new AIServerFactory(commClient);
+			AIServerFactory factory = new AIServerFactory(commClient, logger);
 			factory.run();
 			
 			//check if we have a profileId
