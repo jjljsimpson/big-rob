@@ -31,17 +31,16 @@ public class LogCommand extends BaseCommand
 	{
 		super.writeData(buffer);
 		
-		for(int i=0; i<message.length(); i++)
-		{
-			buffer.putChar(message.charAt(i));
-		}
+		buffer.put(message.getBytes());		
 	}
 	
 	@Override
 	protected void readData(ByteBuffer buffer)
 	{
-		super.readData(buffer);		
-		message = new String(buffer.asCharBuffer().array());
+		super.readData(buffer);
+		
+		int size = buffer.capacity() - buffer.position();
+		message = new String(buffer.array(), buffer.position(), size);		
 	}
 	
 	@Override

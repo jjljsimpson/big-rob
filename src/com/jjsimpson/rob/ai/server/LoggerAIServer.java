@@ -7,6 +7,7 @@ import com.jjsimpson.rob.log.ILogger;
 
 public class LoggerAIServer extends PingAIServer
 {	
+	protected static final int MAX_LOG_COUNT = 4;
 	protected static final long MAX_TIME = 4500;	//send a message every 4.5 seconds
 	protected int logNumber;
 	protected long lastLog;
@@ -33,6 +34,9 @@ public class LoggerAIServer extends PingAIServer
 			logger.debug("Server is sending log");
 			logger.debug(msg);
 			writer.writeCommand(cmd);
+			
+			//we sent something so reset ping
+			resetPing(now);
 		}
 	}
 	
@@ -45,6 +49,11 @@ public class LoggerAIServer extends PingAIServer
 			logNumber = 0;
 		}
 		
+		//Only send log a few times
+		if(logNumber > (MAX_LOG_COUNT-1)) {
+			isRunning = false;
+		}
+		
 		return logNumber;
 	}
 	
@@ -53,5 +62,12 @@ public class LoggerAIServer extends PingAIServer
 	{
 		logger.debug("Server is sending a ping");
 		super.sendPing(ctime);
+	}
+	
+	@Override
+	protected void tellClientToShutdown()
+	{
+		logger.debug("Server is going to shutdown, telling client to shutdown");
+		super.tellClientToShutdown();
 	}
 }

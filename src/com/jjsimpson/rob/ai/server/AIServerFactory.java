@@ -41,7 +41,7 @@ public class AIServerFactory extends BaseDeviceProfile
 	@Override
 	protected void readCommand(BaseCommand command, CommType type)
 	{
-		logger.debug("Reading command");
+		logger.debug("Reading command " + type.toString());
 		if(type.getMainType() == CommType.TYPE_INIT && type.getSubType() == InitSubCommands.HANDSHAKE_SUB_COMMAND)
 		{
 			handleHandshakeCommand(command);
@@ -93,6 +93,8 @@ public class AIServerFactory extends BaseDeviceProfile
 	@Override
 	protected void startThreads()
 	{
+		logger.debug("starting read/write threats");
+		
 		writer.start();
 		reader.start();
 				

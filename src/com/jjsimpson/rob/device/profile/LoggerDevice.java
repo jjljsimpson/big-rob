@@ -81,6 +81,14 @@ public class LoggerDevice extends BaseDeviceProfile
 		msg("finished handleLogCommand");
 	}
 	
+	@Override
+	protected void handleShutdownCommand(BaseCommand command)
+	{
+		msg("Shutting down device");
+		super.handleShutdownCommand(command);
+	}
+
+	
 	protected void msg(String message)
 	{
 		if(logger != null)

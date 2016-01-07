@@ -2,6 +2,7 @@ package com.jjsimpson.rob.ai.server;
 
 import com.jjsimpson.rob.comm.commands.BaseCommand;
 import com.jjsimpson.rob.comm.commands.CommandFactory;
+import com.jjsimpson.rob.comm.commands.init.ShutdownCommand;
 import com.jjsimpson.rob.comm.model.BasicFrame;
 import com.jjsimpson.rob.comm.model.CommType;
 import com.jjsimpson.rob.comm.thread.ICommReader;
@@ -35,6 +36,8 @@ public class BaseAIServer extends Thread implements IAIServer
 		{
 			loopLogic();
 		}
+		
+		tellClientToShutdown();
 	}
 		
 	
@@ -90,6 +93,12 @@ public class BaseAIServer extends Thread implements IAIServer
 	protected void loopAI()
 	{
 		
+	}
+	
+	
+	protected void tellClientToShutdown()
+	{
+		writer.writeCommand(new ShutdownCommand());
 	}
 	
 	

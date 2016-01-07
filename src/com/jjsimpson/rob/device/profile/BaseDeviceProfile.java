@@ -88,6 +88,9 @@ public class BaseDeviceProfile extends Thread implements IDeviceProfile
 		
 		//Close the connection
 		closeConnection();
+		
+		//Shutdown stuff
+		shutdown();
 	}
 	
 	
@@ -115,6 +118,12 @@ public class BaseDeviceProfile extends Thread implements IDeviceProfile
 		if(writer != null) {
 			writer.finish();
 		}
+	}
+	
+
+	protected void shutdown()
+	{
+		
 	}
 	
 	
@@ -164,9 +173,8 @@ public class BaseDeviceProfile extends Thread implements IDeviceProfile
 			logger.debug("Got frame, going to run command");
 			
 			//If frame wasn't valid, respond
-			if(frame.isValid())
+			if(!frame.isValid())
 			{
-				logger.debug("Sending feedback");
 				sendFeedback(FeedbackCommand.INVALID_CONTROL, new CommType(CommType.TYPE_INIT, InitSubCommands.FEEDBACK_SUB_COMMAND));
 			}
 			else
@@ -190,13 +198,20 @@ public class BaseDeviceProfile extends Thread implements IDeviceProfile
 	
 	protected void sendFeedback(int control, CommType type)
 	{
+		logger.debug("Sending feedback " + type.toString());
+		
 		boolean isFeedback = false;
 		
-		if(type.getMainType() == CommType.TYPE_INIT && type.getSubType() == InitSubCommands.FEEDBACK_SUB_COMMAND)
+		//Don't send feedback on feedback, or shutdown
+		if(type.getMainType() == CommType.TYPE_INIT)
 		{
-			isFeedback = true;
+			int subType = type.getSubType();
+			if(subType == InitSubCommands.FEEDBACK_SUB_COMMAND || subType == InitSubCommands.SHUTDOWN_SUB_COMMAND)
+			{
+				isFeedback = true;
+			}
 		}
-		
+				
 		if(!isFeedback)
 		{
 			writer.sendFeedback(new FeedbackCommand(control));
@@ -208,12 +223,27 @@ public class BaseDeviceProfile extends Thread implements IDeviceProfile
 	protected void readCommand(BaseCommand command, CommType type)
 	{
 		logger.debug("Reading command");
-		if(type.getMainType() == CommType.TYPE_INIT && type.getSubType() == InitSubCommands.LOG_SUB_COMMAND)
+		if(type.getMainType() == CommType.TYPE_INIT)
 		{
-			handleLogCommand(command);
+			int subType = type.getSubType();
+			if(subType == InitSubCommands.LOG_SUB_COMMAND)
+			{
+				handleLogCommand(command);
+			}
+			else if(subType == InitSubCommands.SHUTDOWN_SUB_COMMAND)
+			{
+				handleShutdownCommand(command);
+			}
 		}
+		
 	}
 		
+	
+	protected void handleShutdownCommand(BaseCommand command)
+	{
+		shutdownDevice();
+	}
+	
 	
 	protected void handleLogCommand(BaseCommand command)
 	{

@@ -5,6 +5,7 @@ import com.jjsimpson.rob.comm.commands.init.HandshakeCommand;
 import com.jjsimpson.rob.comm.commands.init.InitSubCommands;
 import com.jjsimpson.rob.comm.commands.init.LogCommand;
 import com.jjsimpson.rob.comm.commands.init.PingCommand;
+import com.jjsimpson.rob.comm.commands.init.ShutdownCommand;
 import com.jjsimpson.rob.comm.model.BasicFrame;
 import com.jjsimpson.rob.comm.model.CommType;
 
@@ -55,6 +56,9 @@ public class CommandFactory
 				break;
 			case InitSubCommands.LOG_SUB_COMMAND:
 				result = new LogCommand();
+				break;
+			case InitSubCommands.SHUTDOWN_SUB_COMMAND:
+				result = new ShutdownCommand();
 				break;
 		}
 		return result;
