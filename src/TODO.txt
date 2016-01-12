@@ -1,4 +1,2 @@
-//Need to create app acts as a cli you type commands and they are sent to the server
-//Need to create a server app that gets the commands
-
-
+//TODO need to get pi4j
+//TODO need to start code for sensors, talking with RPi

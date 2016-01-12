@@ -1,21 +1,40 @@
-This is my project for creating a robot.
-The code for this robot is in 3 main parts (And three main directories).
+This is mark IV
+The fourth incarnation of my bot code.
+Previously I tried to have much of this running on Arduino, but I have shifted to Raspberry Pi.
+The reasoning is simple, I'm writing the code in Java. This allows it to run on Raspberry Pi, Android, or a Desktop Computer.
+I can now write the client and server in the same language, and they can share code. It does make things simpler, although a littler harder to find
+drivers for some hardware.
 
-Overview
-The robot I’m currently building is controlled mainly from an arduino micro controller. This controls the movements of the robot, and reads the sensors. Right now it is very simple with two motors and bluetooth for communication. The next version will include some ultrasonic sensors and a servo to detect distance values around the bot.
+This code is currently broken into 3 areas.
 
-Although the arduino controls the low level functions of the bot, all high level functions are going to be controlled elsewhere. The arduino is great for connecting to servos and sensors, but it lacks memory to have lots of high level AI. My plan to address this issue is to have all high level logic done off board. With this iteration the logic is done on an android device. The android device sends commands to the arduino, and the robot does what it is told. Eventually, I would like to replace this with some sophisticated AI, on a computer. Possibly with the phone acting as a bridge.
+-- AI --
+This is the AI used to control the device. It will run on something more powerful like an android phone or a desktop computer. It may be
+connected to the robot in different fashions. For example it could communicate through bluetooth or wifi.
+There are different profiles of AI, which may be created on the fly. Basically a device sends a handshake telling the server what
+profile the device matches. Then the server determines what kind of AI to instantiate and run.
+
+Future versions of the AI may be able to handle multiple device profiles.
+
+Some AI profiles are very simple, where data is sent to the AI, and a person makes decisions on what should be done. This is more like
+remote control. Other AI may be more complicated where it makes decisions on it's own. (This is where I hope to go with this project.)
+
+-- Device --
+The device represents the hardware of the robot. It may have sensors, servos, motors, etc. It is responsible for gathering data and performing actions.
+It depends on the AI to determine what actions it should take.
+
+Because of the loose coupling between the device and the AI, it is easier to have different logic with the same hardware.
 
 
+-- Comm --
+This is the communications layer. It is responsible for streaming data between the different devices.
+A single chunck of data is called a frame. It is genereic and has a variable size payload.
+Currently the payload is a form of a command object. After a valid frame has been retreived, the payload is converted
+into a command. The commands are different sizes with varying information. This informs the device what to do, or updates information
 
-Android
-This first version is fairly simple. The Android phone has two sliders each representing the speed for two motors. The framework that is given here is generic so that I can add functionality fairly easily. There is a bluetooth protocol I created to send commands to the robot, and to receive data from the robot. Every command has a receipt, and when the robot reads the command it sends back the receipt. When the phone gets this receipt back it sends the next command. If the arduino can’t read the command then it asks to resend the command. This was built because of data which was lost in transmissions. This happened much more than what I expected.
+There is a read queue. It is controlled by another thread. As frames become available they are pushed onto a queue. The main loop
+then reads from this queue and performs some action.
 
-The Android folder contains an android project (written with ADT). It should be easy to import and build.
-
-
-
-Arduino
-The arduino project comes in two directories. The arduino_engine directory contains the code for the main logic flow. It contains the loop that the robot constantly goes through. This loop doesn’t end until the bot is shut off.
-
-Most of the actual processing happens in classes used by the main loop. These classes are used as libraries. This is the purpose for the libraries directory. Add these to the library directory used by the arduino IDE. These do the processing and communication with bluetooth.
+There is also a write queue. When a command needs to be sent it is added to the queue and the thread responsible for writing
+sends this frame out. Although commands and frames are read the same way on both the AI and device, they are handleded compleltly differently.
+For example, a device sends out a handshake command, but the server never does. Also the device sends feedback that a command was received,
+but the server doesn't send any feedback to the device.
