@@ -1,2 +1,5 @@
+//TODO refactor so nothing extends Thread, but instead Implements ILoopRunner
+//TODO can get rid of IDeviceProfile, and use BaseDeviceProfile instead
+//TODO can get rid of IAIServer, and use BaseAIServer instead
 //TODO need to get pi4j
 //TODO need to start code for sensors, talking with RPi

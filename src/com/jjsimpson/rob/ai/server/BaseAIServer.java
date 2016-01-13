@@ -9,12 +9,12 @@ import com.jjsimpson.rob.comm.thread.ICommReader;
 import com.jjsimpson.rob.comm.thread.ICommWriter;
 import com.jjsimpson.rob.comm.util.ICommClient;
 import com.jjsimpson.rob.log.ILogger;
+import com.jjsimpson.rob.utils.BaseLoopRunner;
 
-public class BaseAIServer extends Thread implements IAIServer
+public class BaseAIServer extends BaseLoopRunner implements IAIServer
 {
 	protected ICommClient	commClient;
 	protected ILogger		logger;
-	protected boolean		isRunning;
 	protected ICommReader	reader;
 	protected ICommWriter	writer;	
 	
@@ -28,24 +28,21 @@ public class BaseAIServer extends Thread implements IAIServer
 	}
 	
 	@Override
-	public void run()
+	public void loopShutdown()
 	{
-		isRunning = true;
-		
-		while(isRunning)
-		{
-			loopLogic();
-		}
-		
 		tellClientToShutdown();
-	}
 		
+		reader.finish();
+		writer.finish();
+		
+		commClient.closeSilently();		
+	}
 	
+	
+	@Override
 	protected void loopLogic()
 	{
 		loopRead();
-		loopAI();
-		loopWrite();		
 	}
 	
 	
@@ -83,39 +80,12 @@ public class BaseAIServer extends Thread implements IAIServer
 	{
 		
 	}
-	
-	protected void loopWrite()
-	{
-		
-	}
-	
-	
-	protected void loopAI()
-	{
-		
-	}
-	
+
 	
 	protected void tellClientToShutdown()
 	{
 		writer.writeCommand(new ShutdownCommand());
 	}
-	
-	
-	@Override
-	public void shutdown()
-	{
-		isRunning = false;
-	}
-	
-	
-	@Override
-	public void close()
-	{
-		reader.finish();
-		writer.finish();
-		
-		commClient.closeSilently();
-	}
+
 
 }

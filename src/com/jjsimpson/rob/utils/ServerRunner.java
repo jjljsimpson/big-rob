@@ -19,8 +19,6 @@ public class ServerRunner
 		if(aiServer != null)
 		{
 			aiServer.run();
-			
-			aiServer.close();
 		}
 		
 		//Ok, all done now, so exit

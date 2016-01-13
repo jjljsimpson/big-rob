@@ -14,13 +14,12 @@ public class LoggerDevice extends BaseDeviceProfile
 
 	
 	@Override
-	public void shutdownDevice()
-	{
+	public void closeLoop() {
 		msg("Starting shutdown");
-		super.shutdownDevice();
+		super.closeLoop();
 		msg("Finished shutdown");
 	}
-	
+
 	
 	@Override
 	public void run()

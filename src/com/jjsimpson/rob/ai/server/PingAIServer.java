@@ -25,15 +25,7 @@ public class PingAIServer extends BaseAIServer
 	{
 		super.loopRead();
 		checkIfPingIsNeeded();
-	}
-	
-	@Override
-	protected void loopWrite()
-	{
-		super.loopWrite();
-		checkIfPingIsNeeded();
-	}
-	
+	}	
 	
 	protected void checkIfPingIsNeeded()
 	{

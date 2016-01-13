@@ -22,6 +22,12 @@ public class LoggerAIServer extends PingAIServer
 	
 	
 	@Override
+	protected void loopLogic()
+	{
+		super.loopLogic();
+		loopAI();
+	}	
+	
 	protected void loopAI()
 	{
 		//Check if we need to send a log message

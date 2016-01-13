@@ -15,17 +15,19 @@ import com.jjsimpson.rob.comm.thread.ICommWriter;
 import com.jjsimpson.rob.comm.util.ICommClient;
 import com.jjsimpson.rob.log.ConsoleLogger;
 import com.jjsimpson.rob.log.ILogger;
+import com.jjsimpson.rob.utils.BaseLoopRunner;
+import com.jjsimpson.rob.utils.ILoopRunner;
 
-public class BaseDeviceProfile extends Thread implements IDeviceProfile
+public class BaseDeviceProfile extends BaseLoopRunner implements IDeviceProfile, ILoopRunner, Runnable
 {
 	public static final int LOGGER_DEVICE_PROFILE = 1;
 	
 	protected int				profileId;
-	protected boolean 			isRunning;
 	protected ICommClient		clientConnection;
 	protected ICommReader		reader;
 	protected ICommWriter		writer;
 	protected ILogger			logger;
+	
 	
 	public BaseDeviceProfile(ICommClient client)
 	{
@@ -57,40 +59,27 @@ public class BaseDeviceProfile extends Thread implements IDeviceProfile
 	{
 		this.logger = logger;
 	}
-		
+			
 	
 	@Override
-	public void shutdownDevice()
-	{
-		isRunning = false;
+	public void loopInit() {
+		super.loopInit();
+		
+		//Wait until client is connected
+		waitForConnection();
+		
+		//Start reader / writer threads
+		startThreads();		
 	}
 	
 	
 	@Override
-	public void run()
-	{
-		isRunning = true;
-		
-		//Wait until client is connected
-		waitForConnection();		
-		
-		//Start reader / writer threads
-		startThreads();
-		
-		//wait until loop logic is finished
-		while(isRunning)
-		{
-			loopLogic();
-		}
-		
+	public void loopShutdown() {
 		//stop reader / writer threads
 		stopThreads();
 		
 		//Close the connection
-		closeConnection();
-		
-		//Shutdown stuff
-		shutdown();
+		closeConnection();		
 	}
 	
 	
@@ -121,12 +110,6 @@ public class BaseDeviceProfile extends Thread implements IDeviceProfile
 	}
 	
 
-	protected void shutdown()
-	{
-		
-	}
-	
-	
 	protected void waitForConnection()
 	{
 		//override this method
@@ -142,20 +125,6 @@ public class BaseDeviceProfile extends Thread implements IDeviceProfile
 	}
 	
 	
-	protected void loopLogic()
-	{
-		loopRead();
-		
-		loopWrite();		
-	}
-	
-	
-	protected void loopWrite()
-	{
-
-	}
-	
-	
 	protected void closeConnection()
 	{
 		//Close the connection
@@ -163,7 +132,7 @@ public class BaseDeviceProfile extends Thread implements IDeviceProfile
 	}
 	
 	
-	protected void loopRead()
+	protected void loopLogic()
 	{
 		//Read a frame
 		BasicFrame frame = reader.getNextFrame();
@@ -192,8 +161,7 @@ public class BaseDeviceProfile extends Thread implements IDeviceProfile
 				sendFeedback(frame.getControl(), type);				
 			}
 		}		
-	}
-		
+	}		
 	
 	
 	protected void sendFeedback(int control, CommType type)
@@ -241,7 +209,7 @@ public class BaseDeviceProfile extends Thread implements IDeviceProfile
 	
 	protected void handleShutdownCommand(BaseCommand command)
 	{
-		shutdownDevice();
+		closeLoop();
 	}
 	
 	
