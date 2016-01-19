@@ -11,6 +11,9 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput;
 
 public class Ultrasonic
 {
+	protected static final long MAX_DISTANCE = 205706897;	//350 cm worth of nano seconds
+	protected static final long MIN_DISTANCE = 1763201;		//3 cm worth of nano seconds
+			
 	protected static final long STARTUP_TIME = 2000;	//2 seconds before sensor is ready
 	protected static final long INITIALIZE_TIME = 10;	//milliseconds before using sensor
 	protected static final long INITIALIZE_SENSOR_TIME = 10 * 1000;	//10 micro seconds
@@ -169,14 +172,26 @@ public class Ultrasonic
 	// once it is low, we are finished
 	protected void checkResponse()
 	{
-		//wait until sensor has low value
-		if(echoPin.isLow())	//if sensor is low
+		long elapsedTime = System.nanoTime() - startSensor;
+		
+		//Check if sensor has low value
+		if(echoPin.isLow())
 		{
-			long endSensor = System.nanoTime();
-			queue.add(endSensor - startSensor);	//Add it to the queue
+			if(elapsedTime < MIN_DISTANCE) {
+				elapsedTime = 0; }
+			
+			queue.add(elapsedTime);	//Add it to the queue
 			sensorStatus = UltrasonicStates.SENSOR_FINISHED;
-			message("Switching from sensor response to sensor finished");
+			message("Switching from sensor response to sensor finished");			
 		}
+		else if(elapsedTime > MAX_DISTANCE)
+		{
+			//went past max distance, so stop here
+			queue.add(MAX_DISTANCE);
+			sensorStatus = UltrasonicStates.SENSOR_FINISHED;
+			message("Switching from sensor response to sensor finished (MAX TIME)");						
+		}
+				
 	}
 	
 	

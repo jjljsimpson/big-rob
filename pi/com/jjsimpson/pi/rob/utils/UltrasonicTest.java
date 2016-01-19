@@ -1,5 +1,7 @@
 package com.jjsimpson.pi.rob.utils;
 
+import com.jjsimpson.mock.pi4j.io.gpio.GpioPinDigitalInputMock;
+import com.jjsimpson.mock.pi4j.io.gpio.GpioPinDigitalOutputMock;
 import com.jjsimpson.rob.sensor.model.Ultrasonic;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
@@ -16,13 +18,13 @@ public class UltrasonicTest {
 	
 	public static void main(String[] args) {	
 		message("----------- Starting the test");
-		
+								
 		long startTime = System.currentTimeMillis();
 		boolean isRunning = true;
 		
 		//Check if running with mock data or real pi data
 //		piSetup();
-//		desktopSetup();
+		desktopSetup();
 		
 		Ultrasonic ultra = new Ultrasonic(0, echo, trigger);
 		
@@ -37,17 +39,17 @@ public class UltrasonicTest {
 				isRunning = false;
 			}
 		}
-		
+
 		message("Finishing the test -----------");
-		
+			
 		message("\n\n");
 		message("--- Values ---");
 		while(ultra.queue.size() > 0)
 		{
 			long interval = ultra.queue.remove(0);
 			intervalMessage(interval);
-		}
-			
+		}	
+		
 	}
 	
 	
@@ -60,11 +62,11 @@ public class UltrasonicTest {
 	}
 	
 	
-//	protected static void desktopSetup()
-//	{
-//		echo = new GpioPinDigitalInputMock();
-//		trigger = new GpioPinDigitalOutputMock();		
-//	}
+	protected static void desktopSetup()
+	{
+		echo = new GpioPinDigitalInputMock();
+		trigger = new GpioPinDigitalOutputMock();		
+	}
 	
 	
 	protected static void message(String msg)
