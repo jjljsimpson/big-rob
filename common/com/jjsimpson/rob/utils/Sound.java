@@ -1,9 +1,6 @@
 package com.jjsimpson.rob.utils;
 
 public class Sound {
-
-//	205706897	= 350 cm
-//	1763201	 = 3 cm
 	
 	public final static double BILLION = 10E9;
 	public final static double SPEED_OF_SOUND = 34029;	//34029 cm per second
