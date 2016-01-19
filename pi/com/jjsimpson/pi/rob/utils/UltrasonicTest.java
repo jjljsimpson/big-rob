@@ -1,4 +1,4 @@
-package com.jjsimpson.rob.utils;
+package com.jjsimpson.pi.rob.utils;
 
 import com.jjsimpson.rob.sensor.model.Ultrasonic;
 import com.pi4j.io.gpio.GpioController;
