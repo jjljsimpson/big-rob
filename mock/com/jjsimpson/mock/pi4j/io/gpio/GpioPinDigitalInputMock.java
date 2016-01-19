@@ -1,9 +1,16 @@
-package com.pi4j.io.gpio;
+package com.jjsimpson.mock.pi4j.io.gpio;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import com.pi4j.io.gpio.GpioPinDigitalInput;
+import com.pi4j.io.gpio.GpioPinShutdown;
+import com.pi4j.io.gpio.GpioProvider;
+import com.pi4j.io.gpio.Pin;
+import com.pi4j.io.gpio.PinMode;
+import com.pi4j.io.gpio.PinPullResistance;
+import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.event.GpioPinListener;
 import com.pi4j.io.gpio.trigger.GpioTrigger;
 
@@ -348,5 +355,5 @@ public class GpioPinDigitalInputMock implements GpioPinDigitalInput {
 		// TODO Auto-generated method stub
 
 	}
-
+	
 }

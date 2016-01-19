@@ -4,9 +4,7 @@ import com.jjsimpson.rob.sensor.model.Ultrasonic;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
-import com.pi4j.io.gpio.GpioPinDigitalInputMock;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
-import com.pi4j.io.gpio.GpioPinDigitalOutputMock;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
 
@@ -24,7 +22,7 @@ public class UltrasonicTest {
 		
 		//Check if running with mock data or real pi data
 //		piSetup();
-		desktopSetup();
+//		desktopSetup();
 		
 		Ultrasonic ultra = new Ultrasonic(0, echo, trigger);
 		
@@ -62,11 +60,11 @@ public class UltrasonicTest {
 	}
 	
 	
-	protected static void desktopSetup()
-	{
-		echo = new GpioPinDigitalInputMock();
-		trigger = new GpioPinDigitalOutputMock();		
-	}
+//	protected static void desktopSetup()
+//	{
+//		echo = new GpioPinDigitalInputMock();
+//		trigger = new GpioPinDigitalOutputMock();		
+//	}
 	
 	
 	protected static void message(String msg)
