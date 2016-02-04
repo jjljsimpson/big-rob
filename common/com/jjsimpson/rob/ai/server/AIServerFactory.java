@@ -84,6 +84,14 @@ public class AIServerFactory extends BaseDeviceProfile
 				logger.debug("Creating logger ai server");
 				result = new LoggerAIServer(commClient, logger);
 				break;
+			case BaseDeviceProfile.DISTANCE_DEVICE_PROFILE:
+				logger.debug("Creating distance server");
+				result = new DistanceServer(commClient, logger);
+				break;
+			case BaseDeviceProfile.RADAR_DEVICE_PROFILE:
+				logger.debug("Creating radar server");
+				result = new RadarServer(commClient, logger);
+				break;
 		}
 		
 		return result;

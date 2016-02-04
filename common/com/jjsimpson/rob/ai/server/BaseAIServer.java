@@ -9,7 +9,7 @@ import com.jjsimpson.rob.comm.thread.ICommReader;
 import com.jjsimpson.rob.comm.thread.ICommWriter;
 import com.jjsimpson.rob.comm.util.ICommClient;
 import com.jjsimpson.rob.log.ILogger;
-import com.jjsimpson.rob.utils.BaseLoopRunner;
+import com.jjsimpson.rob.utils.loop.BaseLoopRunner;
 
 public class BaseAIServer extends BaseLoopRunner implements IAIServer
 {

@@ -2,7 +2,10 @@ package com.jjsimpson.pi.rob.utils;
 
 import com.jjsimpson.mock.pi4j.io.gpio.GpioPinDigitalInputMock;
 import com.jjsimpson.mock.pi4j.io.gpio.GpioPinDigitalOutputMock;
-import com.jjsimpson.rob.sensor.model.Ultrasonic;
+import com.jjsimpson.rob.log.ConsoleLogger;
+import com.jjsimpson.rob.log.ILogger;
+import com.jjsimpson.rob.sensor.Ultrasonic;
+import com.jjsimpson.rob.utils.Sound;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
@@ -15,9 +18,12 @@ public class UltrasonicTest {
 	protected static GpioPinDigitalInput echo;
 	protected static GpioPinDigitalOutput trigger;
 	protected static final long END_TIME = 5000;
+	protected static ILogger logger;
 	
-	public static void main(String[] args) {	
-		message("----------- Starting the test");
+	public static void main(String[] args) {
+		logger = new ConsoleLogger();
+		
+		logger.info("----------- Starting the test");
 								
 		long startTime = System.currentTimeMillis();
 		boolean isRunning = true;
@@ -26,7 +32,7 @@ public class UltrasonicTest {
 //		piSetup();
 		desktopSetup();
 		
-		Ultrasonic ultra = new Ultrasonic(0, echo, trigger);
+		Ultrasonic ultra = new Ultrasonic((byte)0, echo, trigger, logger);
 		
 		while(isRunning)
 		{
@@ -40,10 +46,10 @@ public class UltrasonicTest {
 			}
 		}
 
-		message("Finishing the test -----------");
+		logger.info("Finishing the test -----------");
 			
-		message("\n\n");
-		message("--- Values ---");
+		logger.info("\n\n");
+		logger.info("--- Values ---");
 		while(ultra.queue.size() > 0)
 		{
 			long interval = ultra.queue.remove(0);
@@ -56,28 +62,26 @@ public class UltrasonicTest {
 	protected static void piSetup()
 	{
 	    final GpioController gpio = GpioFactory.getInstance();
-	    final GpioPinDigitalOutput trigPin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_04, "Trig", PinState.LOW);
-	    final GpioPinDigitalInput  echoPin = gpio.provisionDigitalInputPin(RaspiPin.GPIO_05,  "Echo");
+	    trigger = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_04, "Trig", PinState.LOW);
+	    echo = gpio.provisionDigitalInputPin(RaspiPin.GPIO_05,  "Echo");
 		
 	}
 	
 	
 	protected static void desktopSetup()
 	{
-		echo = new GpioPinDigitalInputMock();
-		trigger = new GpioPinDigitalOutputMock();		
+		trigger = new GpioPinDigitalOutputMock();
+		echo = new GpioPinDigitalInputMock();		
 	}
 	
 	
-	protected static void message(String msg)
-	{
-		System.out.println(msg);
-	}
-	
+
 	
 	protected static void intervalMessage(long val)
 	{
-		System.out.println("interval - " + Long.toString(val));
+		double inCm = Sound.getDistanceFromNanoUltrasonic(val);
+		
+		logger.info("interval - " + Long.toString(val) + " in CM: " + inCm);
 	}
 
 }

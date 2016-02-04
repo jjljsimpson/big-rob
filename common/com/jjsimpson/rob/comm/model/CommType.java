@@ -7,8 +7,9 @@ package com.jjsimpson.rob.comm.model;
  */
 public class CommType
 {
-	//Main types of communication frames
-	public static final int	TYPE_INIT = 0;
+
+	public static final int	TYPE_INIT = 0;		//Main types of communication frames
+	public static final int TYPE_SENSOR_VALUES = 1;		//Sensor value commands
 	
 	//First byte is main type
 	//Second byte is sub type	

@@ -1,9 +1,11 @@
-package com.jjsimpson.rob.sensor.model;
+package com.jjsimpson.rob.sensor;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.jjsimpson.rob.log.ILogger;
+import com.jjsimpson.rob.sensor.model.UltrasonicStates;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 
@@ -19,20 +21,21 @@ public class Ultrasonic
 	protected static final long INITIALIZE_SENSOR_TIME = 10 * 1000;	//10 micro seconds
 	
 	public List<Long>	queue;	//This is thread safe
-	public int		id;				//ID for this sensor
+	public byte		id;				//ID for this sensor
 	public int		sensorStatus;	//status of the sensor (used in the loop)
 	protected long	startupTime;	//When this class first started up
 	protected long	initTime;		//When initialization started
 	protected long	initSensor;		//When sensor was initialized
 	protected long	startSensor;	//When the sensor starts reading a value
 	protected boolean continuous;	//If we continue to grab values, or stop
+	protected ILogger logger;		//verbose usage
 	
 	protected GpioPinDigitalInput echoPin;	//Pin for reading values	
 	protected GpioPinDigitalOutput triggerPin;	//Pin for telling it to send signal
 	
 	protected int callCount;	//REMOVE THIS
 	
-	public Ultrasonic(int sensorId, GpioPinDigitalInput echo, GpioPinDigitalOutput trig)
+	public Ultrasonic(byte sensorId, GpioPinDigitalInput echo, GpioPinDigitalOutput trig, ILogger verbose)
 	{
 		id = sensorId;
 		queue = Collections.synchronizedList(new ArrayList<Long>());
@@ -44,6 +47,7 @@ public class Ultrasonic
 		initTime = 0;
 		startSensor = 0;
 		initSensor = 0;
+		logger = verbose;
 	}
 	
 	public void setContinuous(boolean val) { continuous = val; }
@@ -82,7 +86,8 @@ public class Ultrasonic
 		initTime = 0;
 		startSensor = 0;
 		initSensor = 0;
-		sensorStatus = UltrasonicStates.READY_START;		
+		sensorStatus = UltrasonicStates.READY_START;	
+		message("Restarting");
 	}
 	
 	
@@ -216,8 +221,13 @@ public class Ultrasonic
 	//------------ Remove this, only for testing
 	protected void message(String msg)
 	{
-		System.out.println(msg + " - CallCount:" + Integer.toString(callCount));
-		callCount = 0;
+		//Note, this only displays a message if verbose was set
+		// by passing in a logger
+		if(logger != null)
+		{
+			logger.info("(" + Integer.toString(id) + ")" + msg + " - CallCount:" + Integer.toString(callCount));
+			callCount = 0;
+		}		
 	}
 	
 	

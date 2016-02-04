@@ -1,4 +1,5 @@
-package com.jjsimpson.rob.utils;
+package com.jjsimpson.rob.utils.loop;
+
 
 public class BaseLoopRunner implements ILoopRunner, Runnable
 {

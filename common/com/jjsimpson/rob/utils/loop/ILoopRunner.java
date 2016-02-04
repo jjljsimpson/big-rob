@@ -1,4 +1,4 @@
-package com.jjsimpson.rob.utils;
+package com.jjsimpson.rob.utils.loop;
 
 //This allows a class to be called either in a separate thread,
 //	or, they can be grouped together in a larger loop.

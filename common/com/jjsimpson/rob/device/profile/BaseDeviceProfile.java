@@ -15,12 +15,14 @@ import com.jjsimpson.rob.comm.thread.ICommWriter;
 import com.jjsimpson.rob.comm.util.ICommClient;
 import com.jjsimpson.rob.log.ConsoleLogger;
 import com.jjsimpson.rob.log.ILogger;
-import com.jjsimpson.rob.utils.BaseLoopRunner;
-import com.jjsimpson.rob.utils.ILoopRunner;
+import com.jjsimpson.rob.utils.loop.BaseLoopRunner;
+import com.jjsimpson.rob.utils.loop.ILoopRunner;
 
 public class BaseDeviceProfile extends BaseLoopRunner implements IDeviceProfile, ILoopRunner, Runnable
 {
 	public static final int LOGGER_DEVICE_PROFILE = 1;
+	public static final int DISTANCE_DEVICE_PROFILE = 2;
+	public static final int RADAR_DEVICE_PROFILE = 3;
 	
 	protected int				profileId;
 	protected ICommClient		clientConnection;

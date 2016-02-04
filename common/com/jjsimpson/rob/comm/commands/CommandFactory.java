@@ -6,6 +6,9 @@ import com.jjsimpson.rob.comm.commands.init.InitSubCommands;
 import com.jjsimpson.rob.comm.commands.init.LogCommand;
 import com.jjsimpson.rob.comm.commands.init.PingCommand;
 import com.jjsimpson.rob.comm.commands.init.ShutdownCommand;
+import com.jjsimpson.rob.comm.commands.sensorvalues.SensorLongCommand;
+import com.jjsimpson.rob.comm.commands.sensorvalues.SensorSubCommands;
+import com.jjsimpson.rob.comm.commands.sensorvalues.SensorTripleIntCommand;
 import com.jjsimpson.rob.comm.model.BasicFrame;
 import com.jjsimpson.rob.comm.model.CommType;
 
@@ -21,6 +24,9 @@ public class CommandFactory
 			{
 				case CommType.TYPE_INIT:
 					result = createInitCommand(frame, type);
+					break;
+				case CommType.TYPE_SENSOR_VALUES:
+					result = createSensorCommand(frame, type);
 					break;
 			}
 		}
@@ -61,6 +67,24 @@ public class CommandFactory
 				result = new ShutdownCommand();
 				break;
 		}
+		return result;
+	}
+	
+	
+	protected static BaseCommand createSensorCommand(BasicFrame frame, CommType type)
+	{
+		BaseCommand result = null;
+		
+		switch(type.getSubType())
+		{
+			case SensorSubCommands.LONG_VALUE:
+				result = new SensorLongCommand();
+				break;
+			case SensorSubCommands.TRIPLE_INT_VALUE:
+				result = new SensorTripleIntCommand();
+				break;
+		}
+		
 		return result;
 	}
 	

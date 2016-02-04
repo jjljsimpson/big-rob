@@ -16,8 +16,16 @@ public class DeviceProfileFactory
 				result = new LoggerDevice(comm);
 				result.setLogger(logger);
 				break;
+			case BaseDeviceProfile.DISTANCE_DEVICE_PROFILE:
+				result = new DistanceDevice(comm);
+				result.setLogger(logger);
+				break;
+			case BaseDeviceProfile.RADAR_DEVICE_PROFILE:
+				result = new RadarDevice(comm);
+				result.setLogger(logger);
+				break;
 		}
-		
+				
 		return result;
 	}
 }
