@@ -1,5 +1,10 @@
 package com.jjsimpson.rob.utils;
 
+
+
+
+
+
 public class NumberConversion
 {
 	protected static final float MIN_HEADING_VALUE = 0.8f;	//Headings within this value are considered the same	

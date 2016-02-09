@@ -1,5 +1,28 @@
-//TODO refactor so nothing extends Thread, but instead Implements ILoopRunner
-//TODO can get rid of IDeviceProfile, and use BaseDeviceProfile instead
-//TODO can get rid of IAIServer, and use BaseAIServer instead
-//TODO need to get pi4j
-//TODO need to start code for sensors, talking with RPi
+Get list of components - How to hook up each component.
+
+----------------------------
+Raspberry Pi Only Components
+----------------------------
+Range Finder (3) - Ultrasonic HC-SR04
+Compass - LSM303
+Motor Controller - https://www.adafruit.com/products/1940 - $30
+Servo Controller - https://www.adafruit.com/products/815 - $15
+Servo - 
+Motor -
+Wheel Encoder - https://www.sparkfun.com/products/12629 - $13 - https://plus.google.com/+MarkWomack0/posts/X8C7rvfbdUT
+
+----------------------------
+Raspberry Pi + Arduino
+----------------------------
+Range Finder (3) - Ultrasonic HC-SR04
+Compass - LSM303
+Arduino - For Motor communication with motor Controller and Servo Controller
+Motor Controller - Arduino Motor Shield
+Servo Controller - Arduino Motor Shield
+Servo -
+Motor -
+Wheel Encoder - https://www.sparkfun.com/products/12629 - $13 - https://plus.google.com/+MarkWomack0/posts/X8C7rvfbdUT
+
+
+- Finish Radar Map
+- Create Neural net to merge Radar Maps

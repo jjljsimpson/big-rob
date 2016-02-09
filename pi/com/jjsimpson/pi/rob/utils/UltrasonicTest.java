@@ -62,8 +62,8 @@ public class UltrasonicTest {
 	protected static void piSetup()
 	{
 	    final GpioController gpio = GpioFactory.getInstance();
-	    trigger = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_04, "Trig", PinState.LOW);
-	    echo = gpio.provisionDigitalInputPin(RaspiPin.GPIO_05,  "Echo");
+	    trigger = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_00, "Trig", PinState.LOW);
+	    echo = gpio.provisionDigitalInputPin(RaspiPin.GPIO_01,  "Echo");
 		
 	}
 	

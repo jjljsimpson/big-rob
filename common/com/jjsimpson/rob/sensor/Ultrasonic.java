@@ -13,7 +13,7 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput;
 
 public class Ultrasonic
 {
-	protected static final long MAX_DISTANCE = 205706897;	//350 cm worth of nano seconds
+	public static final long MAX_DISTANCE = 205706897;	//350 cm worth of nano seconds
 	protected static final long MIN_DISTANCE = 1763201;		//3 cm worth of nano seconds
 			
 	protected static final long STARTUP_TIME = 2000;	//2 seconds before sensor is ready
